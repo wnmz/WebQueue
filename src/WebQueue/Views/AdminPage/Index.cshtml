@@ -1,0 +1,7 @@
+﻿@Styles.Render("~/Scripts/View/AdminPage/Styles.css")
+
+<div id="linkContainer">
+    @Html.ActionLink("Редактировать заявки", "EditPositions", new {controller="QueuePositions"}, new {@class = "btn btn-primary btn-lg"})
+    @Html.ActionLink("Редактировать дни приёма заявок", "Index", new {controller = "Days"}, new {@class = "btn btn-primary btn-lg"})
+    @Html.ActionLink("Редактировать пользователей", "Index", new {Controller = "Users"}, new {@class = "btn btn-primary btn-lg"})
+</div>

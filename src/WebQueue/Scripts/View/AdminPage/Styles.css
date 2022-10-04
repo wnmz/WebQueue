@@ -1,0 +1,8 @@
+﻿#linkContainer {
+    flex-direction: column;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    margin: 10px;
+    gap: 10px;
+}

@@ -1,0 +1,76 @@
+﻿@model IEnumerable<WebQueue.Models.EditDayViewModel>
+<h2>
+    Редактирование дней приёма заявок
+    @Html.ActionLink("Создать",
+        "Create",
+        "Days",
+        null,
+        new {@class = "btn btn-success"})
+</h2>
+<table class="table table-dark table-striped table-bordered table-hover">
+    <tr>
+        <th>
+            Дата
+        </th>
+        <th>
+            День недели
+        </th>
+        <th>
+            Рабочий день
+        </th>
+        <th>
+            Время начала приёма заявок
+        </th>
+        <th>
+            Время окончания приёма заявок
+        </th>
+        <th>
+            Управление
+        </th>
+    </tr>
+    @foreach (var day in Model)
+    {
+        <tr>
+            @using (Html.BeginForm("EditDay", "Days", FormMethod.Post))
+            {
+            <td>
+                <input name="Id" type="hidden" value="@day.Id">
+                <input name="ExactDate" type="date" value="@(day.ExactDate?.ToString("yyyy-MM-dd"))">
+            </td>
+                <td>
+                    <select name="DayOfWeek">
+                        <option selected="@(day.DayOfWeek == null)" value="">Не выбран</option>
+                        <option selected="@(day.DayOfWeek == DayOfWeek.Monday)" value="Monday">Понедельник</option>
+                        <option selected="@(day.DayOfWeek == DayOfWeek.Thursday)" value="Tuesday">Вторник</option>
+                        <option selected="@(day.DayOfWeek == DayOfWeek.Wednesday)" value="Wednesday">Среда</option>
+                        <option selected="@(day.DayOfWeek == DayOfWeek.Thursday)" value="Thursday">Четверг</option>
+                        <option selected="@(day.DayOfWeek == DayOfWeek.Friday)" value="Friday">Пятница</option>
+                        <option selected="@(day.DayOfWeek == DayOfWeek.Saturday)" value="Saturday">Суббота</option>
+                        <option selected="@(day.DayOfWeek == DayOfWeek.Sunday)" value="Sunday">Воскресенье</option>
+                    </select>
+                </td>
+                <td>
+                    <input id="IsWorkTime" type="checkbox" value="true" name="IsWorkTime" checked="@day.IsWorkTime"/>
+                    <input type="hidden" value="false" name="IsWorkTime"/>
+                </td>
+
+                <td>
+                    <input type="time" name="WorkStartTime" value="@day.WorkStartTime">
+                </td>
+                <td>
+                    <input type="time" name="WorkEndTime" value="@day.WorkEndTime">
+                </td>
+
+                <td>
+                    @Html.ActionLink("Удалить",
+                        "DeleteDay",
+                        "Days",
+                        new {id = day.Id},
+                        new {@class = "btn btn-danger"})
+
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </td>
+            }
+        </tr>
+    }
+</table>

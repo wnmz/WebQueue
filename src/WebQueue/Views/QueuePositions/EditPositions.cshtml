@@ -1,0 +1,49 @@
+﻿@model List<WebQueue.Models.AdminPage.EditPositionsViewModel>
+
+<h2>Редактирование заявок</h2>
+<table class="table table-dark table-striped table-bordered table-hover">
+    <tr>
+        <th>
+            Почта
+        </th>
+        <th>
+            Выбранная дата
+        </th>
+        <th>
+            Дата создания
+        </th>
+        <th>
+            Управление
+        </th>
+    </tr>
+    @foreach (var pos in Model)
+    {
+        <tr>
+            @using (Html.BeginForm("EditPosition", "QueuePositions", FormMethod.Post))
+            {
+                <input name="PositionId" type="hidden" value="@pos.PositionId">
+                <td>
+                    @pos.Email
+                    <input name="Email" type="hidden" value="@pos.Email">
+                </td>
+                <td>
+                    <input name="Time" type="text" value="@pos.Time">
+                </td>
+                <td>
+                    @pos.CreatedAt
+                    <input name="CreatedAt" type="hidden" value="@pos.CreatedAt">
+                </td>
+
+                <td>
+                    @Html.ActionLink("Удалить",
+                        "Delete",
+                        "QueuePositions",
+                        new { id = pos.PositionId },
+                        new {@class = "btn btn-danger"})
+
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </td>
+            }
+        </tr>
+    }
+</table>

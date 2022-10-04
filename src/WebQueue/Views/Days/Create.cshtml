@@ -1,0 +1,69 @@
+﻿@model WebQueue.Models.EditDayViewModel
+<h2>
+    Создание дня приёма заявок
+    @Html.ActionLink("Вернуться",
+        "Index",
+        "Days",
+        null,
+        new {@class = "btn btn-primary"})
+</h2>
+<table class="table table-dark table-striped table-bordered table-hover">
+    <tr>
+        <th>
+            Дата
+        </th>
+        <th>
+            День недели
+        </th>
+        <th>
+            Рабочий день
+        </th>
+        <th>
+            Время начала приёма заявок
+        </th>
+        <th>
+            Время окончания приёма заявок
+        </th>
+        <th>
+            Управление
+        </th>
+    </tr>
+
+    <tr>
+        @using (Html.BeginForm("CreateDay", "Days", FormMethod.Post))
+        {
+            <input name="Id" type="hidden" value="@Model.Id">
+            <td>
+                <input name="ExactDate" type="date" value="@Model.ExactDate">
+            </td>
+            <td>
+                <select name="DayOfWeek">
+                    <option selected="@(Model.DayOfWeek == null)" value="">Не выбран</option>
+                    <option selected="@(Model.DayOfWeek == DayOfWeek.Monday)" value="Monday">Понедельник</option>
+                    <option selected="@(Model.DayOfWeek == DayOfWeek.Thursday)" value="Tuesday">Вторник</option>
+                    <option selected="@(Model.DayOfWeek == DayOfWeek.Wednesday)" value="Wednesday">Среда</option>
+                    <option selected="@(Model.DayOfWeek == DayOfWeek.Thursday)" value="Thursday">Четверг</option>
+                    <option selected="@(Model.DayOfWeek == DayOfWeek.Friday)" value="Friday">Пятница</option>
+                    <option selected="@(Model.DayOfWeek == DayOfWeek.Saturday)" value="Saturday">Суббота</option>
+                    <option selected="@(Model.DayOfWeek == DayOfWeek.Sunday)" value="Sunday">Воскресенье</option>
+                </select>
+            </td>
+            <td>
+                <input id="IsWorkTime" type="checkbox" value="true" name="IsWorkTime" checked="@Model.IsWorkTime"/>
+                <input type="hidden" value="false" name="IsWorkTime"/>
+            </td>
+
+            <td>
+                <input type="time" name="WorkStartTime" value="@Model.WorkStartTime">
+            </td>
+            <td>
+                <input type="time" name="WorkEndTime" value="@Model.WorkEndTime">
+            </td>
+
+            <td>
+                <button type="submit" class="btn btn-success">Создать</button>
+            </td>
+        }
+    </tr>
+    
+</table>

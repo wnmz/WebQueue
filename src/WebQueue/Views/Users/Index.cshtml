@@ -1,0 +1,50 @@
+﻿@model List<WebQueue.Models.Users.UserViewModel>
+<h2>
+    Редактирование пользователей
+</h2>
+
+<table class="table table-dark table-striped table-bordered table-hover">
+    <tr>
+        <th>
+            Почта
+        </th>
+        <th>
+            Кол-во заявок
+        </th>
+        <th>
+            Администратор
+        </th>
+        <th>
+            Управление
+        </th>
+    </tr>
+
+    @foreach (var user in Model)
+    {
+        <tr>
+            @using (Html.BeginForm("EditUser", "Users", FormMethod.Post))
+            {
+                <td>
+                    <input type="hidden" name="Id" value="@user.Id">
+                    @user.Email
+                </td>
+                <td>
+                    @user.AmountOfRequests
+                </td>
+                <td>
+                    <input id="IsAdmin" type="checkbox" value="true" name="IsAdmin" checked="@user.IsAdmin"/>
+                    <input type="hidden" value="false" name="IsAdmin"/>
+                </td>
+                <td style="width: 25%">
+                    @Html.ActionLink("Посмотреть заявки",
+                        "GetQueuePositionsForUser",
+                        "QueuePositions",
+                        new {id = user.Id},
+                        new {@class = "btn btn-success"})
+
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </td>
+            }
+        </tr>
+    }
+</table>

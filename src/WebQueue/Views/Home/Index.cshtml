@@ -1,0 +1,26 @@
+﻿@using Newtonsoft.Json.Converters
+@model IEnumerable<WebQueue.Models.Day>
+@{
+    ViewBag.Title = "Электронная очередь";
+    @Scripts.Render("~/Scripts/Calendar/jsCalendar.js");
+    @Scripts.Render("~/Scripts/Calendar/jsCalendar.lang.ru.js");
+    @Styles.Render("~/Scripts/Calendar/jsCalendar.css");
+
+    @Scripts.Render("~/Scripts/TimeSelector/TimePicker.js");
+    @Styles.Render("~/Scripts/TimeSelector/TimePicker.css");
+
+    @Styles.Render("~/Scripts/View/Home/Styles.css");
+}
+
+<div id="timePickers">
+    <h2>Выберите дату:</h2>
+    <div id="datePicker"></div>
+    <h2>Выберите время:</h2>
+    <input id="timePicker" placeholder="Сначала выберите дату">
+
+    <button type="button" id="submitBtn" class="btn btn-primary">Записаться</button>
+</div>
+<script>
+    let days = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model, new JavaScriptDateTimeConverter()));
+</script>
+@Scripts.Render("~/Scripts/View/Home/index.js")
